@@ -1,0 +1,17 @@
+/bin/
+/data/
+/artifacts/
+/web/node_modules/
+/web/test-results/
+/web/playwright-report/
+*.db
+*.db-shm
+*.db-wal
+__pycache__/
+.venv/
+*.jsonl
+*.log
+*.out
+*.tmp
+*.pyc
+*.tsbuildinfo

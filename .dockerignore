@@ -1,0 +1,8 @@
+**/node_modules
+bin
+data
+artifacts
+web/test-results
+web/playwright-report
+.git
+**/__pycache__

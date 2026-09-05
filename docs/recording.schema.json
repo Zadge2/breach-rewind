@@ -1,0 +1,33 @@
+{
+ "$schema":"https://json-schema.org/draft/2020-12/schema",
+ "title":"BREACH REWIND recording 1.0",
+ "type":"object","additionalProperties":false,
+ "required":["schema","id","title","created","scenario","mode","collector","notes","events","digest"],
+ "properties":{
+  "schema":{"const":"1.0"},
+  "id":{"$ref":"#/$defs/id"},
+  "title":{"type":"string","minLength":1,"maxLength":240},
+  "created":{"type":"string","format":"date-time"},
+  "scenario":{"type":"string","maxLength":128},
+  "mode":{"type":"string","maxLength":64},
+  "collector":{"type":"string","maxLength":128},
+  "notes":{"type":"array","maxItems":100,"items":{"type":"string","maxLength":2048}},
+  "events":{"type":"array","maxItems":20000,"items":{"$ref":"#/$defs/event"}},
+  "digest":{"type":"string","pattern":"^[a-f0-9]{64}$"}
+ },
+ "$defs":{
+  "id":{"type":"string","pattern":"^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$"},
+  "event":{"type":"object","additionalProperties":false,"required":["id","time","kind","summary","severity","outcome","source","attributes"],"properties":{
+   "id":{"$ref":"#/$defs/id"},"time":{"type":"string","format":"date-time"},
+   "kind":{"enum":["request","response","process","file","network","policy","other"]},
+   "summary":{"type":"string","maxLength":2048},
+   "severity":{"enum":["info","low","medium","high","critical"]},
+   "outcome":{"enum":["success","blocked","attempted","failed","observed"]},
+   "source":{"type":"string","maxLength":128},
+   "pid":{"type":"integer","minimum":0},"ppid":{"type":"integer","minimum":0},
+   "process":{"type":"string","maxLength":1024},"host":{"type":"string","maxLength":256},"container":{"type":"string","maxLength":256},
+   "trace_id":{"type":"string","maxLength":128},"parent_id":{"$ref":"#/$defs/id"},
+   "attributes":{"type":"object","maxProperties":64,"propertyNames":{"maxLength":128},"additionalProperties":{"type":"string","maxLength":4096}}
+  }}
+ }
+}

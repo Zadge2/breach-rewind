@@ -1,0 +1,28 @@
+name: breach-rewind-lab
+services:
+  vulnerable:
+    build:
+      context: .
+      dockerfile: demos/Dockerfile
+    command: ["--scenario", "diagnostic-export", "--mode", "vulnerable"]
+    network_mode: none
+    read_only: true
+    tmpfs: ["/tmp:size=32m,mode=1777"]
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    pids_limit: 32
+    mem_limit: 128m
+    cpus: 1
+  patched:
+    build:
+      context: .
+      dockerfile: demos/Dockerfile
+    command: ["--scenario", "diagnostic-export", "--mode", "patched"]
+    network_mode: none
+    read_only: true
+    tmpfs: ["/tmp:size=32m,mode=1777"]
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    pids_limit: 32
+    mem_limit: 128m
+    cpus: 1
